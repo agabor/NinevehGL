@@ -201,20 +201,12 @@ NGLThread *nglThreadGet(NSString *name)
 
 void nglThreadPerformAsync(NSString *name, SEL selector, id target)
 {
-	// Creates the thread once, if necessary.
-	NGLThread *thread = nglThreadGet(name);
-	
-	[thread performAsync:selector target:target];
+    nglMsg(target, selector);
 }
 
 void nglThreadPerformSync(NSString *name, SEL selector, id target)
 {
-	// Creates the thread once, if necessary.
-	NGLThread *thread = nglThreadGet(name);
-
-// AH: Watch the syncrhonous thread execution, debugging in case of thread deadlocking.
-//    NSLog(@"%@ performSync: %@", name, NSStringFromSelector(selector));
-	[thread performSync:selector target:target];
+    nglMsg(target, selector);
 }
 
 void nglThreadSetPaused(NSString *name, BOOL paused)
